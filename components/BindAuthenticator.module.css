@@ -1,0 +1,11 @@
+.step-box :global(.ant-steps-item-active .ant-steps-item-title, ) {
+  color: #5558ff !important;
+}
+
+.step-box :global(.ant-steps-item-active .ant-steps-item-title::after) {
+  background-color: #5558ff !important;
+}
+
+.key :global(.anticon) {
+  color: #999;
+}
