@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useUserStore } from "@/store";
 
@@ -11,12 +11,13 @@ function NavigationEvents({ children }: { children: ReactNode }) {
   const searchParams = useSearchParams();
   const token = useUserStore((state) => state.user?.token);
   const router = useRouter();
+  const [isClient, setClient] = useState(false);
 
-  // 路由变化前的处理函数
-  function handleRouteChange() {
+  useEffect(() => {
     const url = `${pathname}?${searchParams}`;
     console.log(url);
     const isInWiteList = whiteList.includes(pathname);
+    setClient(true);
     // 未登录
     if (token) {
       if (pathname == "/") {
@@ -25,13 +26,9 @@ function NavigationEvents({ children }: { children: ReactNode }) {
     } else {
       if (!isInWiteList) router.push("/");
     }
-  }
+  }, [pathname, router, searchParams, token]);
 
-  // if (typeof window != undefined) handleRouteChange();
-
-  useEffect(handleRouteChange, [pathname, router, searchParams, token]);
-
-  return children;
+  return <>{isClient ? children : null}</>;
 }
 
 export default NavigationEvents;
