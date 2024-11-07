@@ -3,7 +3,6 @@ import {
   BindMachineParams,
   KVObject,
   LoginPassParams,
-  PostBind2fa,
 } from "@/types";
 import axios, { AxiosRequestConfig } from "axios";
 import "@/interceptors/index";
